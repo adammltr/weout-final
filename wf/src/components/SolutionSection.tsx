@@ -31,7 +31,8 @@ const SolutionSection = () => {
             Comment ça marche
           </span>
           <h2 className="section-title">
-            3 étapes. <span className="text-accent">C'est tout.</span>
+            Comment WeOut t'aide à{" "}
+            <span className="text-accent">rencontrer des gens et sortir.</span>
           </h2>
         </div>
 

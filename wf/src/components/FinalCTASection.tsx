@@ -16,11 +16,13 @@ const FinalCTASection = () => {
           </div>
 
           <h2 className="text-3xl md:text-4xl font-bold mb-5">
-            Fais partie de <span className="text-accent">l'aventure</span>.
+            Prêt à sortir{" "}
+            <span className="text-accent">ce soir à Caen ?</span>
           </h2>
           
           <p className="text-muted-foreground text-lg max-w-md mx-auto mb-10 leading-relaxed">
-            Rejoins la communauté pour suivre l'avancement, donner ton avis et accéder à l'app en avant-première.
+            Rejoins WeOut pour voir qui est dispo, organiser un événement entre amis
+            et profiter de la nightlife étudiante dans ta ville.
           </p>
 
           {/* Primary CTA - Instagram Community */}

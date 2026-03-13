@@ -92,7 +92,9 @@ const TestimonialsSection = () => {
             Retours bêta
           </span>
           <h2 className="section-title">
-            Ils testent <span className="text-accent">WeOut</span>.
+            Ils utilisent <span className="text-accent">WeOut</span> pour
+            <br />
+            <span className="text-accent">rencontrer des amis et sortir.</span>
           </h2>
         </div>
       </div>

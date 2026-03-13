@@ -32,11 +32,11 @@ const ProblemSection = () => {
       <div className="container-narrow relative z-10">
         <div className="text-center mb-14">
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary mb-4">
-            Le problème
+            Quand tu veux sortir
           </span>
           <h2 className="section-title">
-            Sortir devrait pas être<br />
-            <span className="text-muted-foreground">aussi compliqué.</span>
+            Sortir en ville avec des amis{" "}
+            <span className="text-muted-foreground">ne devrait pas être aussi compliqué.</span>
           </h2>
         </div>
 
