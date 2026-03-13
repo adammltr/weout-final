@@ -1,0 +1,139 @@
+/* SAFARI FIX: Removed @import for fonts - now loaded via preload in index.html 
+   This prevents render-blocking and FOUC on Safari */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Dark premium theme */
+    --background: 250 15% 6%;
+    --foreground: 0 0% 98%;
+
+    --card: 250 12% 10%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 250 12% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Violet base */
+    --primary: 265 85% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Subtle violet for secondary */
+    --secondary: 265 30% 18%;
+    --secondary-foreground: 265 30% 80%;
+
+    --muted: 250 15% 15%;
+    --muted-foreground: 250 10% 55%;
+
+    /* Orange accent for CTAs */
+    --accent: 25 95% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 250 15% 18%;
+    --input: 250 15% 18%;
+    --ring: 265 85% 65%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens */
+    --glow-primary: 265 85% 65%;
+    --glow-accent: 25 95% 55%;
+    --surface-elevated: 250 12% 12%;
+    --text-secondary: 250 10% 65%;
+    --text-tertiary: 250 10% 45%;
+  }
+
+  .dark {
+    --background: 250 15% 6%;
+    --foreground: 0 0% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* SAFARI FIX: Ensure proper text rendering on WebKit */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    /* SAFARI FIX: Prevent layout shift from font loading */
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+@layer utilities {
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent;
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 40px hsl(var(--glow-primary) / 0.15),
+                0 0 80px hsl(var(--glow-primary) / 0.1);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 30px hsl(var(--glow-accent) / 0.3),
+                0 0 60px hsl(var(--glow-accent) / 0.15);
+  }
+
+  .glass-card {
+    @apply bg-card/50 backdrop-blur-xl border border-border/50;
+  }
+
+  .section-spacing {
+    @apply py-24 md:py-32 lg:py-40;
+  }
+
+  .container-narrow {
+    @apply max-w-3xl mx-auto px-6;
+  }
+
+  .container-wide {
+    @apply max-w-5xl mx-auto px-6;
+  }
+}
+
+@layer components {
+  .btn-cta {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-4 
+           bg-accent text-accent-foreground font-semibold rounded-xl
+           transition-all duration-300 ease-out
+           hover:scale-[1.02] hover:shadow-lg
+           active:scale-[0.98]
+           focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  .btn-cta:hover {
+    box-shadow: 0 10px 40px hsl(var(--glow-accent) / 0.4);
+  }
+
+  .input-field {
+    @apply w-full px-5 py-4 bg-muted/50 border border-border rounded-xl
+           text-foreground placeholder:text-muted-foreground
+           transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold tracking-tight;
+  }
+
+  .section-subtitle {
+    @apply text-lg md:text-xl text-muted-foreground leading-relaxed;
+  }
+}
