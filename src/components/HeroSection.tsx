@@ -1,4 +1,4 @@
-import socialSceneImage from "@/assets/social-scene.jpg";
+import socialSceneImage from "@/assets/social-scene.png";
 
 const INSTAGRAM_COMMUNITY_LINK = "https://ig.me/j/Abbq3hHQWv0LUGOG/";
 const DISCORD_INVITE_LINK = "https://discord.gg/azSbYCFmS3";
@@ -13,7 +13,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <img
           src={socialSceneImage}
-          alt="Groupe d'amis qui sortent en ville le soir"
+          alt="Foule en soirée, mains levées au coucher de soleil — événement et nightlife"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
@@ -29,21 +29,21 @@ const HeroSection = () => {
             </span>
           </div>
 
-          {/* Headline - SEO + émotion */}
+          {/* Headline - SEO + émotion (légère ombre pour lisibilité) */}
           <h1
             id="weout-hero-heading"
-            className="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.1] tracking-tight mb-6 animate-fade-in"
+            className="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.1] tracking-tight mb-6 animate-fade-in [text-shadow:0_1px_2px_rgba(0,0,0,0.4),0_0_12px_rgba(0,0,0,0.25)]"
             style={{ animationDelay: "0.1s" }}
           >
             Sortir à Caen{" "}
-            <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent [text-shadow:0_1px_2px_rgba(0,0,0,0.4),0_0_12px_rgba(0,0,0,0.25)]">
               avec tes amis, ce soir.
             </span>
           </h1>
 
-          {/* Subheadline - projection + mots-clés */}
+          {/* Subheadline - projection + mots-clés (blanc + ombre pour lisibilité sur la photo) */}
           <p
-            className="text-lg md:text-xl text-muted-foreground max-w-lg mx-auto mb-10 animate-fade-in leading-relaxed"
+            className="text-lg md:text-xl text-white/95 max-w-lg mx-auto mb-10 animate-fade-in leading-relaxed [text-shadow:0_1px_4px_rgba(0,0,0,0.8),0_0_20px_rgba(0,0,0,0.5)]"
             style={{ animationDelay: "0.2s" }}
           >
             WeOut est l'app pour organiser des sorties entre amis, rencontrer des gens
@@ -95,7 +95,7 @@ const HeroSection = () => {
             </a>
             
             {/* Micro social proof */}
-            <p className="text-sm text-muted-foreground mt-2 flex items-center justify-center gap-2">
+            <p className="text-sm text-white/90 mt-2 flex items-center justify-center gap-2 [text-shadow:0_1px_3px_rgba(0,0,0,0.9)]">
               <span className="w-1.5 h-1.5 rounded-full bg-accent/60" />
               Accès prioritaire à l'app pour les membres de la communauté
             </p>

@@ -1,4 +1,4 @@
-import socialSceneImage from "@/assets/social-scene.jpg";
+import showcaseImage from "@/assets/social-scene-showcase.png";
 import appScreenshot from "@/assets/app-screenshot.png";
 
 const AppShowcaseSection = () => {
@@ -61,15 +61,17 @@ const AppShowcaseSection = () => {
             </div>
           </div>
 
-          {/* Social Scene Image - Right side */}
+          {/* Social Scene Image - Right side (bords arrondis + dégradés comme avant) */}
           <div className="relative lg:w-[55%] lg:-ml-8">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src={socialSceneImage}
+                src={showcaseImage}
                 alt="Groupe d'amis qui s'amusent ensemble en soirée dans les rues de Caen"
                 className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover"
                 loading="lazy"
               />
+              <div className="absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent z-10 lg:w-1/3 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/30 z-10 pointer-events-none" />
 
               {/* Overlay content */}
               <div className="absolute bottom-6 left-6 right-6 z-20">

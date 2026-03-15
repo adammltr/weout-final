@@ -1,41 +1,48 @@
 import { useEffect, useRef } from "react";
 
+import avatarLea from "@/assets/testimonial-lea.png";
+import avatarThomas from "@/assets/testimonial-thomas.png";
+import avatarInes from "@/assets/testimonial-ines.png";
+import avatarMathis from "@/assets/testimonial-mathis.png";
+import avatarChloe from "@/assets/testimonial-chloe.png";
+import avatarLucas from "@/assets/testimonial-lucas.png";
+
 const testimonials = [
   {
     name: "Léa",
     age: 21,
     text: "Ça évite les messages gênants dans le groupe. Tu sais direct qui est chaud.",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face",
+    avatar: avatarLea,
   },
   {
     name: "Thomas",
     age: 19,
     text: "J'ai trouvé des gens chauds pour sortir sans forcer. Simple.",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+    avatar: avatarThomas,
   },
   {
     name: "Inès",
     age: 22,
     text: "Enfin une app sociale sans malaise. J'attends le lancement public.",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+    avatar: avatarInes,
   },
   {
     name: "Mathis",
     age: 20,
     text: "Je découvre des plans que j'aurais jamais connu sinon.",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
+    avatar: avatarMathis,
   },
   {
     name: "Chloé",
     age: 23,
     text: "Nouvelle dans ma ville. WeOut m'a aidé à rencontrer du monde.",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face",
+    avatar: avatarChloe,
   },
   {
-    name: "Lucas",
+    name: "Yanis",
     age: 18,
     text: "Plus besoin d'attendre que quelqu'un propose. Tu proposes, point.",
-    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&h=100&fit=crop&crop=face",
+    avatar: avatarLucas,
   },
 ];
 
