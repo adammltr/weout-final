@@ -1,4 +1,4 @@
-const INSTAGRAM_COMMUNITY_LINK = "https://ig.me/j/Abbq3hHQWv0LUGOG/";
+const INSTAGRAM_COMMUNITY_LINK = "https://ig.me/j/AbbdpdeBZYvEMAq8/";
 const DISCORD_INVITE_LINK = "https://discord.gg/azSbYCFmS3";
 
 const FinalCTASection = () => {
