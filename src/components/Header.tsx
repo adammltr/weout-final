@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Heart, X } from "lucide-react";
 import weoutLogo from "@/assets/weout-logo-1.png";
+import { PrimaryInstallButton } from "@/components/PrimaryInstallButton";
 
 const INSTAGRAM_PROFILE_LINK = "https://www.instagram.com/weoutsocial";
 const DISCORD_INVITE_LINK = "https://discord.gg/azSbYCFmS3";
@@ -26,13 +27,6 @@ const Header = () => {
       document.body.style.overflow = "";
     };
   }, [mobileMenuOpen]);
-
-  const scrollToCTA = () => {
-    const ctaSection = document.getElementById("cta");
-    if (ctaSection) {
-      ctaSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-xl border-b border-border/30">
@@ -61,12 +55,7 @@ const Header = () => {
 
           {/* Right: Desktop nav */}
           <div className="hidden sm:flex items-center gap-4">
-            <button
-              onClick={scrollToCTA}
-              className="px-6 py-3 bg-accent text-accent-foreground font-semibold text-base rounded-full hover:scale-[1.02] hover:shadow-lg transition-all duration-300"
-            >
-              Rejoindre la bêta
-            </button>
+            <PrimaryInstallButton size="default" />
             {/* Instagram Icon */}
             <a
               href={INSTAGRAM_PROFILE_LINK}
@@ -104,13 +93,8 @@ const Header = () => {
           </div>
 
           {/* Mobile: Hamburger menu button */}
-          <div className="flex sm:hidden items-center gap-3">
-            <button
-              onClick={scrollToCTA}
-              className="px-4 py-2 bg-accent text-accent-foreground font-semibold text-sm rounded-full hover:scale-[1.02] transition-all duration-300"
-            >
-              Rejoindre
-            </button>
+          <div className="flex sm:hidden items-center gap-2">
+            <PrimaryInstallButton size="compact" />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-full bg-muted/50 hover:bg-accent/20 transition-colors"
