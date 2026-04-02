@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.weout.app",
+      "sha256_cert_fingerprints": [
+        "62:36:76:69:8F:93:CC:F7:14:61:1C:FE:04:3F:5D:F2:2F:A3:2A:83:4C:22:2F:DE:78:B5:A2:ED:1E:8D:72:90"
+      ]
+    }
+  }
+]
