@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RefHandler from "./components/RefHandler";
+import PlanPathRedirect from "./components/PlanPathRedirect";
 import Index from "./pages/Index";
 import Merci from "./pages/Merci";
 import Ambassadeur from "./pages/Ambassadeur";
@@ -22,6 +23,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/ref" element={<Index />} />
+            <Route path="/plan/:planId/*" element={<PlanPathRedirect />} />
             <Route path="/merci" element={<Merci />} />
             <Route path="/ambassadeur" element={<Ambassadeur />} />
             <Route path="/discord" element={<Discord />} />

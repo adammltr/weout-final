@@ -71,3 +71,12 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## Déploiement join-weout.com (liens partagés & Vercel)
+
+Ce dépôt est une **SPA Vite/React** servie à la racine du domaine : les URLs avec query (`/?plan=<uuid>`, `/?ref=<code>`, `?sref=…`) renvoient déjà `index.html` — aucune config spéciale n’est requise pour la query string.
+
+- **`vercel.json`** : rewrite global vers `/index.html` pour que les chemins sans fichier statique (ex. anciens liens **`/plan/<uuid>`**) ne renvoient pas `404 NOT_FOUND` avant le routeur. Vercel continue de servir en priorité les fichiers réels (`/assets/*`, `/.well-known/*`, `favicon`, etc.).
+- **Route client** : `/plan/:planId` (et sous-chemins) redirige en **SPA** vers **`/?plan=<uuid>`** en conservant les paramètres de query existants (ex. `sref`).
+
+Si tu n’utilises pas Vercel (Netlify, S3, Nginx…), configure l’équivalent : **fallback SPA** vers `index.html` pour toutes les routes non fichiers, sans écraser `/.well-known/`.
