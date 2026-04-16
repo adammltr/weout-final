@@ -208,7 +208,7 @@ const PlanShareLanding = ({ planId, sref }: PlanShareLandingProps) => {
       setDocumentMeta("WeOut — Plan inaccessible", "Critères du plan ou lien.");
       return;
     }
-    setDocumentMeta("WeOut — Plan", "Lien ou critères du plan.");
+    setDocumentMeta("WeOut — Plan non disponible", "Souvent lien, âge ou plan fini. Pas un bug.");
   }, [phase]);
 
   const submitBirthYear = (e: React.FormEvent) => {
@@ -250,33 +250,34 @@ const PlanShareLanding = ({ planId, sref }: PlanShareLandingProps) => {
   }, [gate]);
 
   const neutralCopy = useMemo(() => {
+    const commonTitle = "Plan non disponible pour toi";
     if (!gate) {
       return {
-        title: "On n’a pas pu vérifier",
-        body: "Petit souci technique ou réseau. Réessaie. Souvent ce n’est toujours pas un bug, juste le lien ou les règles du plan.",
+        title: commonTitle,
+        body: "Réseau ou chargement. Réessaie. Souvent : lien, âge ou plan fini. Pas un bug.",
       };
     }
     if (gate.gate === "not_found") {
       return {
-        title: "Lien plus bon",
-        body: "Soit le plan est parti, soit l’URL est fausse. Demande un nouveau lien, ça arrive tout le temps.",
+        title: commonTitle,
+        body: "Lien mort ou plan supprimé. Souvent pas un bug : demande un nouveau lien à l’hôte.",
       };
     }
     if (gate.gate === "unconfigured") {
       return {
-        title: "Vérif pas dispo",
-        body: "Le site ne peut pas lire les règles du plan pour l’instant. Réessaie plus tard ou ouvre depuis l’app.",
+        title: commonTitle,
+        body: "Souvent : plan fini ou expiré, tranche d’âge, ou lien plus bon. Pas un bug WeOut. Réessaie ou ouvre depuis l’app.",
       };
     }
     if (gate.gate === "network" || gate.gate === "error") {
       return {
-        title: "Ça n’a pas répondu",
-        body: "Réessaie dans une minute. Si ça bloque encore, demande à l’hôte si tu es dans les critères (âge, etc.).",
+        title: commonTitle,
+        body: "Réessaie dans une minute. Si ça continue : lien, âge ou plan plus actif. Pas un bug.",
       };
     }
     return {
-      title: "Bloqué pour l’instant",
-      body: "Réessaie. Le plus souvent c’est le lien ou une règle du plan, pas un bug WeOut.",
+      title: commonTitle,
+      body: "Réessaie. Le plus souvent : lien, âge ou plan plus là. Pas un bug.",
     };
   }, [gate]);
 
