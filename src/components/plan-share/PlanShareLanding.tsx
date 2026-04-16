@@ -87,6 +87,41 @@ type PlanShareLandingProps = {
   sref: string | null;
 };
 
+/** Encadré commun : réduit les « c’est un bug » — la cause la plus fréquente est le non-respect des critères du plan. */
+function PlanReassuranceCard({ variant = "default" }: { variant?: "default" | "compact" }) {
+  const isCompact = variant === "compact";
+  return (
+    <div
+      className="rounded-xl border border-accent/30 bg-accent/[0.08] px-4 py-3.5 text-sm leading-relaxed shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+      role="note"
+    >
+      <p className="font-semibold text-foreground mb-1.5">
+        {isCompact ? "Ce n’est pas un bug WeOut" : "Très probablement : ce n’est pas un bug"}
+      </p>
+      <p className="text-muted-foreground">
+        {isCompact ? (
+          <>
+            L’accès à un plan suit des règles (âge, visibilité, dates…). Si tu es sur cet écran, c’est en général que{" "}
+            <strong className="text-foreground/90">ces règles ne sont pas remplies pour toi</strong> — ou plus — pour
+            cette sortie. Ce comportement est <strong className="text-foreground/90">attendu</strong>, pas une panne de
+            l’app.
+          </>
+        ) : (
+          <>
+            Le site et l’app fonctionnent en principe correctement. Dans la grande majorité des cas, tu vois cet
+            écran parce que <strong className="text-foreground/90">le créateur du plan a défini des critères</strong>{" "}
+            (souvent une <strong className="text-foreground/90">tranche d’âge</strong>, une visibilité, des dates, ou
+            d’autres règles) et que{" "}
+            <strong className="text-foreground/90">ta situation ne les remplit pas</strong> pour cette sortie — ou
+            parce que le lien n’est plus actif. Ce n’est pas une erreur technique à signaler comme « bug » : c’est le
+            cadre choisi pour ce plan.
+          </>
+        )}
+      </p>
+    </div>
+  );
+}
+
 const PlanShareLanding = ({ planId, sref }: PlanShareLandingProps) => {
   const [phase, setPhase] = useState<Phase>("loading");
   const [gate, setGate] = useState<PlanGateResult | null>(null);
@@ -129,10 +164,16 @@ const PlanShareLanding = ({ planId, sref }: PlanShareLandingProps) => {
       return;
     }
     if (phase === "ineligible") {
-      setDocumentMeta("Ce plan ne correspond pas à ton profil | WeOut", "Ce lien de sortie a des critères définis par l’organisateur.");
+      setDocumentMeta(
+        "Ce plan ne correspond pas à ton profil | WeOut",
+        "Souvent lié aux critères du plan (âge, etc.) — ce n’est en général pas un bug.",
+      );
       return;
     }
-    setDocumentMeta("WeOut — Lien de plan", "Nous n’avons pas pu ouvrir ce plan depuis le navigateur.");
+    setDocumentMeta(
+      "WeOut — Lien de plan",
+      "Souvent lié aux critères du plan ou au lien — ce n’est en général pas un bug.",
+    );
   }, [phase]);
 
   const submitBirthYear = (e: React.FormEvent) => {
@@ -151,41 +192,56 @@ const PlanShareLanding = ({ planId, sref }: PlanShareLandingProps) => {
       return {
         title: "Ce plan ne correspond pas à ton profil",
         body: isYoung
-          ? "Ce plan est réservé à une tranche d’âge : tu es en dessous de l’âge minimum fixé par l’organisateur. Ce n’est pas un bug : c’est un cadre qu’iel a choisi pour que le groupe reste cohérent."
-          : "Ce plan est réservé à une tranche d’âge : tu es au-dessus de la limite prévue par l’organisateur. Rien d’anormal : chaque sortie a ses règles.",
+          ? "Ce plan est réservé à une tranche d’âge : tu es en dessous de l’âge minimum fixé par l’organisateur·ice. Ce n’est pas un bug : c’est une règle du plan, comme en soirée ou en asso quand une entrée est « majeurs seulement » ou avec une limite d’âge."
+          : "Ce plan est réservé à une tranche d’âge : tu es au-dessus de la limite prévue par l’organisateur·ice. Ce n’est pas un bug : c’est une condition volontaire pour ce groupe ou cette sortie.",
       };
     }
     if (gate.gate === "cancelled") {
       return {
         title: "Ce plan n’est plus d’actualité",
-        body: "L’organisateur l’a fermé ou annulé. Ça arrive souvent quand les dates bougent — ce n’est pas une erreur de ton côté.",
+        body: "L’organisateur·ice l’a fermé ou annulé. Ce n’est pas un bug : le lien ne mène plus à une sortie active. Ça arrive souvent quand les dates ou le lieu changent.",
       };
     }
     if (gate.gate === "private") {
       return {
         title: "Ce plan est privé",
-        body: "Seules les personnes invitées peuvent le rejoindre dans l’app. Si tu penses devoir y être, demande une invitation à ton hôte.",
+        body: "Seules les personnes prévues par l’hôte peuvent le rejoindre dans l’app. Ce n’est pas un bug : c’est une sortie fermée. Demande une invitation si tu penses devoir faire partie du groupe.",
       };
     }
-    return { title: "Ce plan ne correspond pas à ton profil", body: "Les critères définis par l’organisateur ne correspondent pas à ta situation pour cette sortie." };
+    return {
+      title: "Ce plan ne correspond pas à ton profil",
+      body: "Les critères fixés pour ce plan ne correspondent pas à ta situation ici. Ce n’est pas un bug : c’est le cadre défini par l’organisateur·ice (âge, visibilité, autre règle côté WeOut).",
+    };
   }, [gate]);
 
   const neutralCopy = useMemo(() => {
     if (!gate) {
       return {
-        title: "Impossible de vérifier ce plan pour l’instant",
-        body: "Un souci réseau ou de configuration nous empêche de confirmer ce lien. Réessaie plus tard ou explore WeOut autrement.",
+        title: "On n’a pas pu confirmer ce lien tout de suite",
+        body: "Soit la connexion ou le service a calé, soit la vérification automatique n’est pas disponible. Réessaie dans un instant. Si ça persiste, ce n’est pas forcément un bug : dans beaucoup de cas, c’est aussi que le plan a des critères (âge, etc.) que nous n’avons pas pu vérifier depuis le navigateur — l’app pourra être plus précise une fois installée.",
       };
     }
     if (gate.gate === "not_found") {
       return {
         title: "Ce lien ne mène plus à un plan actif",
-        body: "Le plan a peut-être été retiré ou le lien est incomplet. Ce n’est pas de ta faute : les liens de sortie peuvent changer.",
+        body: "Le plan a peut-être été supprimé, le lien est incomplet ou expiré. Ce n’est en général pas un bug WeOut : soit le plan n’existe plus, soit l’URL ne correspond plus. Demande un nouveau lien à la personne qui t’a invité·e.",
+      };
+    }
+    if (gate.gate === "unconfigured") {
+      return {
+        title: "Vérification indisponible pour l’instant",
+        body: "Le site n’a pas pu interroger les règles de ce plan automatiquement. Ce n’est pas chez toi « une panne » obligatoire : souvent, soit la configuration côté serveur n’est pas encore branchée ici, soit le plan a des critères (âge, etc.) qu’on ne peut pas tout vérifier depuis le web. Réessaie plus tard ou ouvre le lien depuis l’app si tu l’as déjà.",
+      };
+    }
+    if (gate.gate === "network" || gate.gate === "error") {
+      return {
+        title: "Impossible de vérifier ce plan pour l’instant",
+        body: "Un souci réseau ou temporaire nous empêche de lire les infos du plan. Ce n’est pas la preuve d’un bug côté toi : réessaie. Si ça continue, ce peut aussi être que le plan a des critères (tranche d’âge, etc.) — dans le doute, demande à l’organisateur·ice si tu es bien dans les conditions.",
       };
     }
     return {
       title: "Impossible de vérifier ce plan pour l’instant",
-      body: "Réessaie dans quelques instants. En attendant, tu peux découvrir WeOut sur le site ou rejoindre la communauté.",
+      body: "Réessaie dans quelques instants. Ce message n’indique pas tout seul un « bug » : le plus fréquent, c’est un critère du plan (âge, visibilité, lien plus valide) ou une vérif qui n’a pas abouti depuis le site.",
     };
   }, [gate]);
 
@@ -210,10 +266,12 @@ const PlanShareLanding = ({ planId, sref }: PlanShareLandingProps) => {
               Critères du plan
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Une petite info pour continuer</h1>
+            <PlanReassuranceCard variant="compact" />
             <p className="text-muted-foreground leading-relaxed">
-              Pour vérifier si ce plan t’est ouvert (notamment sur l’âge), indique ton{" "}
-              <strong className="text-foreground">année de naissance</strong>. Elle reste sur ton appareil (session
-              navigateur), uniquement pour cette vérification.
+              Pour savoir si tu entres dans les critères du plan (souvent la{" "}
+              <strong className="text-foreground">tranche d’âge</strong>), indique ton{" "}
+              <strong className="text-foreground">année de naissance</strong>. Elle reste sur ton appareil (session du
+              navigateur), uniquement               pour cette vérification, pour respecter les règles fixées par l’organisateur·ice.
             </p>
             <form onSubmit={submitBirthYear} className="space-y-4">
               <label className="block text-sm font-medium text-foreground" htmlFor="weout-birth-year">
@@ -281,10 +339,11 @@ const PlanShareLanding = ({ planId, sref }: PlanShareLandingProps) => {
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-center">
               Tu es sur {phase === "eligible_android" ? "Android" : "ce navigateur"}
             </h1>
-            <p className="text-muted-foreground leading-relaxed text-center">
-              La bêta publique WeOut passe aujourd’hui par <strong className="text-foreground">TestFlight</strong>{" "}
-              (iPhone / iPad). Sur Android, l’app arrive bientôt : merci pour ta patience — en attendant, rejoins la
-              communauté pour suivre les annonces.
+            <p className="text-muted-foreground leading-relaxed text-center text-sm">
+              Ce n’est <strong className="text-foreground">pas un bug</strong> : sur Android, la bêta publique passe
+              aujourd’hui par <strong className="text-foreground">TestFlight</strong> (iPhone / iPad seulement).
+              L’app Android arrive — merci pour ta patience. Tu peux suivre les annonces sur les réseaux ou retourner
+              sur le site.
             </p>
             <Button
               asChild
@@ -320,6 +379,7 @@ const PlanShareLanding = ({ planId, sref }: PlanShareLandingProps) => {
         {phase === "ineligible" ? (
           <div className="rounded-2xl border border-border/50 bg-card/80 backdrop-blur-xl p-6 sm:p-8 space-y-5 shadow-lg">
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">{ineligibleCopy.title}</h1>
+            <PlanReassuranceCard variant="compact" />
             <p className="text-muted-foreground leading-relaxed">{ineligibleCopy.body}</p>
             <div className="flex flex-col gap-2 pt-2">
               <Button asChild className="h-12 rounded-full bg-primary text-primary-foreground font-semibold">
@@ -353,6 +413,7 @@ const PlanShareLanding = ({ planId, sref }: PlanShareLandingProps) => {
         {phase === "neutral" ? (
           <div className="rounded-2xl border border-border/50 bg-card/80 backdrop-blur-xl p-6 sm:p-8 space-y-5 shadow-lg">
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">{neutralCopy.title}</h1>
+            <PlanReassuranceCard />
             <p className="text-muted-foreground leading-relaxed">{neutralCopy.body}</p>
             <div className="flex flex-col sm:flex-row gap-2 pt-2">
               <Button asChild className="h-12 rounded-full bg-primary text-primary-foreground font-semibold">
