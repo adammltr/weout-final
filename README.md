@@ -80,3 +80,16 @@ Ce dépôt est une **SPA Vite/React** servie à la racine du domaine : les URLs 
 - **Route client** : `/plan/:planId` (et sous-chemins) redirige en **SPA** vers **`/?plan=<uuid>`** en conservant les paramètres de query existants (ex. `sref`).
 
 Si tu n’utilises pas Vercel (Netlify, S3, Nginx…), configure l’équivalent : **fallback SPA** vers `index.html` pour toutes les routes non fichiers, sans écraser `/.well-known/`.
+
+### Liens `?plan=` — vérification (RPC) & tests manuels
+
+La landing appelle la RPC Supabase **`get_plan_share_gate`** (voir `docs/supabase-plan-share-gate.sql` et migration `supabase/migrations/20260202180000_get_plan_share_gate.sql`). Sans table `plans` / RPC : message neutre « impossible de vérifier », pas de redirection forcée vers l’app.
+
+**Scénarios à tester manuellement** (après déploiement de la RPC sur le projet Supabase relié au site) :
+
+1. **`/?plan=<uuid>`** avec plan public, sans limite d’âge → écran « Tu peux rejoindre ce plan » (iOS : TestFlight explicite ; Android : message patience + Discord / Instagram).
+2. **Même URL** avec `min_age` / `max_age` côté API → demande d’**année de naissance** puis refus ou accès selon l’âge.
+3. **Plan annulé ou privé** → message dédié (pas « bug », pas « 404 »).
+4. **UUID inconnu** → message « Ce lien ne mène plus à un plan actif ».
+5. **Sans RPC / projet sans `plans`** → message neutre + bouton « Réessayer ».
+6. **`/?ref=` seul** → inchangé (landing invitation). **`/?plan=` + `?ref=`** → la **vérification plan** prime sur l’écran invitation.

@@ -15,10 +15,13 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ExternalLink, MessageCircle, Smartphone } from "lucide-react";
+import {
+  DISCORD_INVITE_LINK,
+  INSTAGRAM_GROUP_LINK,
+  TESTFLIGHT_URL,
+} from "@/lib/weOutAppLinks";
 
-export const TESTFLIGHT_URL = "https://testflight.apple.com/join/rGnABBKz";
-export const INSTAGRAM_GROUP_LINK = "https://ig.me/j/AbbdpdeBZYvEMAq8/";
-export const DISCORD_INVITE_LINK = "https://discord.gg/azSbYCFmS3";
+export { DISCORD_INVITE_LINK, INSTAGRAM_GROUP_LINK, TESTFLIGHT_URL } from "@/lib/weOutAppLinks";
 
 type InstallWeOutModalContextValue = {
   openInstallModal: () => void;

@@ -3,7 +3,7 @@ import socialSceneImage from "@/assets/social-scene.png";
 import heroPeer1 from "@/assets/hero-peer-1.png";
 import heroPeer2 from "@/assets/hero-peer-2.png";
 import heroPeer3 from "@/assets/hero-peer-3.png";
-import { TESTFLIGHT_URL } from "@/contexts/InstallWeOutModalContext";
+import { TESTFLIGHT_URL } from "@/lib/weOutAppLinks";
 import { ExternalLink, Gift, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
