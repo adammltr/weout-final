@@ -63,7 +63,12 @@ const HeroSection = () => {
             className="flex flex-col items-center w-full max-w-[420px] animate-fade-in"
             style={{ animationDelay: "0.3s" }}
           >
-            <PrimaryInstallButton className="w-full sm:w-auto" />
+            <div className="flex w-full flex-col items-center gap-1.5 sm:w-auto">
+              <PrimaryInstallButton className="w-full sm:w-auto" />
+              <p className="text-center text-[11px] sm:text-xs text-white/65 max-w-[20rem] leading-snug [text-shadow:0_1px_2px_rgba(0,0,0,0.5)]">
+                Uniquement iPhone et iPad (TestFlight). Android arrive ensuite.
+              </p>
+            </div>
 
             {/* Carte suite du parcours */}
             <div
