@@ -65,10 +65,9 @@ const HeroSection = () => {
           >
             <div className="flex w-full flex-col items-center gap-1.5 sm:w-auto">
               <PrimaryInstallButton className="w-full sm:w-auto" />
-              <p className="mx-auto max-w-[18rem] text-center text-balance text-[11px] sm:text-xs text-white/65 leading-snug [text-shadow:0_1px_2px_rgba(0,0,0,0.5)]">
-                Uniquement iPhone et iPad (TestFlight).
-                <br />
-                Android arrive ensuite.
+              <p className="mx-auto flex max-w-[22rem] flex-col items-center gap-0.5 text-center text-[11px] sm:text-xs text-white/65 leading-snug [text-shadow:0_1px_2px_rgba(0,0,0,0.5)]">
+                <span>Uniquement iPhone et iPad (TestFlight).</span>
+                <span className="whitespace-nowrap">Android arrive ensuite.</span>
               </p>
             </div>
 
